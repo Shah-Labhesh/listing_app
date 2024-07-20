@@ -1,4 +1,4 @@
-class AppWidth {
+class WidthManager {
   static const double w1 = 1;
   static const double w2 = 2;
   static const double w3 = 3;

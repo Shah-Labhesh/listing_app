@@ -49,16 +49,12 @@ class _BottomNavCustomState extends State<BottomNavCustom> {
           
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage(AppIcons.todosIcon),
+              AssetImage(AppIcons.usersIcon),
             ),
-            label: 'My Todos',
+            label: 'Users',
           ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage(AppIcons.albumIcon),
-            ),
-            label: 'Albums',
-          ),
+          
+          
         ],
       ),
     );
