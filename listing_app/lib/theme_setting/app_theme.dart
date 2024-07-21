@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:listing_app/constants/app_colors.dart';
 import 'package:listing_app/constants/app_font_size.dart';
 

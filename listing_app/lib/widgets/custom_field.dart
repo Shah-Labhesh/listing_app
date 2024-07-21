@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 import 'package:listing_app/constants/app_colors.dart';
 import 'package:listing_app/constants/app_font_size.dart';

@@ -1,6 +1,5 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:listing_app/app/posts/data/model/comment.dart';
 import 'package:listing_app/widgets/custom_button.dart';
 import 'package:listing_app/widgets/custom_field.dart';

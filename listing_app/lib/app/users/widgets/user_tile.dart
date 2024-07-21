@@ -1,5 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:easy_url_launcher/easy_url_launcher.dart';
+
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ import 'package:listing_app/constants/app_colors.dart';
 import 'package:listing_app/constants/app_font_size.dart';
 import 'package:listing_app/constants/app_heights.dart';
 import 'package:listing_app/constants/app_width.dart';
+import 'package:listing_app/utils/local_storage_utils.dart';
 
 class UserTile extends StatefulWidget {
   const UserTile({
@@ -182,8 +184,9 @@ class _UserTileState extends State<UserTile> {
                         ),
                         // view on map
                         GestureDetector(
-                          onTap: () async{
-                            await EasyLauncher.openMap(lati: widget.user.address!.geo!.lat!, long: widget.user.address!.geo!.lng!);
+                          onTap: () {
+                      LocalStorageUtils.saveUserId(widget.user.id!);
+                      Navigator.pushNamed(context, 'user_dashboard');
                           },
                           child: Container(
                             padding: const EdgeInsets.all(WidthManager.w10),
