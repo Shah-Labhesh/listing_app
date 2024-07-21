@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(
-          HeightManager.h65,
+          HeightManager.h50,
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(
@@ -66,15 +66,26 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Text(
-                  'Listing App',
-                  style: theme.textTheme.titleMedium!.copyWith(
-                    fontSize: FontSizeManager.f20,
-                    letterSpacing: 0.5,
-                  ),
-                ),
+              // Flexible(
+              //   child: Text(
+              //     '<LApp/>',
+              //     style: TextStyle(
+              //       color: theme.brightness == Brightness.dark
+              //           ? Colors.white
+              //           : Colors.black,
+              //       fontSize: FontSizeManager.f60,
+              //       fontFamily:  'Hoves-bold',
+              //     ),
+              //   ),
+              // ),
+              ImageIcon(
+                AssetImage('assets/images/branding.png'),
+                size: HeightManager.h100,
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
               ),
+              const Spacer(),
               Text(
                 'Dark Mode',
                 style: theme.textTheme.bodyMedium!.copyWith(

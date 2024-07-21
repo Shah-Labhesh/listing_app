@@ -27,7 +27,7 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(65),
         child: TopBar(
-          isBackButton: false,
+          isBackButton: true,
           title: 'My Albums',
         ),
       ),
@@ -82,19 +82,26 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
                         child: Icon(
                           // refresh
                           Icons.refresh,
-                          size: 50,
+                          size: 22,
                           color: theme.colorScheme.onPrimary,
                         ),
                       ),
                       const SizedBox(height: 10),
                       Text(
                         state.message,
-                        style: TextStyle(
-                          color: theme.colorScheme.onPrimary,
-                          fontSize: 20,
-                        ),
+                        style: theme.textTheme.titleSmall,
+                        textAlign: TextAlign.center,
                       ),
                     ],
+                  ),
+                );
+              }
+              if (albums.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Albums Found',
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center,
                   ),
                 );
               }

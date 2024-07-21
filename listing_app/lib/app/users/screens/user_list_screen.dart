@@ -70,7 +70,11 @@ class _UserListScreenState extends State<UserListScreen> {
                           size: 22,
                         ),
                       ),
-                      Text(state.message),
+                      Text(
+                        state.message,
+                        style: theme.textTheme.titleSmall,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 );
@@ -80,6 +84,15 @@ class _UserListScreenState extends State<UserListScreen> {
               }
               if (state is UserListLoaded) {
                 users = state.users;
+              }
+              if (users.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No users found',
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                );
               }
               return ListView.builder(
                 itemCount: users.length,

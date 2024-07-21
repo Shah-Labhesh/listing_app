@@ -44,7 +44,7 @@ class _UserNavbarState extends State<UserNavbar> {
             icon: ImageIcon(
               AssetImage(AppIcons.postIcon),
             ),
-            label: 'Posts',
+            label: 'My Posts',
           ),
           
           BottomNavigationBarItem(
@@ -57,7 +57,7 @@ class _UserNavbarState extends State<UserNavbar> {
             icon: ImageIcon(
               AssetImage(AppIcons.albumIcon),
             ),
-            label: 'Albums',
+            label: 'My Albums',
           ),
         ],
       ),

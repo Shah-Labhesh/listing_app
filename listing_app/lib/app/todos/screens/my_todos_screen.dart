@@ -28,7 +28,6 @@ class _MyTodosScreenState extends State<MyTodosScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(65),
         child: TopBar(
-          isBackButton: false,
           title: 'My Todos',
         ),
       ),
@@ -105,7 +104,11 @@ class _MyTodosScreenState extends State<MyTodosScreen> {
                           size: 22,
                         ),
                       ),
-                      Text(state.message),
+                      Text(
+                        state.message,
+                        style: theme.textTheme.titleSmall,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 );
@@ -117,6 +120,15 @@ class _MyTodosScreenState extends State<MyTodosScreen> {
                   state is MyTodosDeleteLoading) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
+                );
+              }
+              if (todos.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Todos Found',
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center,
+                  ),
                 );
               }
               return Column(

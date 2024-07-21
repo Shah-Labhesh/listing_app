@@ -19,46 +19,52 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   dividerColor: AppColors.lightBg,
   cardColor: AppColors.lightUnitBg,
   textTheme: const TextTheme(
-      titleLarge: TextStyle(
-        fontSize: FontSizeManager.f24,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightBasePrimary,
-      ),
-      titleMedium: TextStyle(
-        fontSize: FontSizeManager.f14,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightBasePrimary,
-      ),
-      bodyMedium: TextStyle(
-        fontSize: FontSizeManager.f16,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightBasePrimary,
-      ),
-      labelMedium: TextStyle(
-        fontSize: FontSizeManager.f14,
-        fontFamily: 'Hoves-regular',
-        color: AppColors.lightHighlightPrimary,
-      ),
-      labelSmall: TextStyle(
-        fontSize: FontSizeManager.f12,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightBaseSecondary,
-      ),
-      headlineMedium: TextStyle(
-        fontSize: FontSizeManager.f16,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightGreen,
-      ),
-      headlineSmall: TextStyle(
-        fontSize: FontSizeManager.f14,
-        fontFamily: 'Hoves-medium',
-        color: AppColors.lightBaseSecondary,
-      ),
-      displaySmall: TextStyle(
-        fontSize: FontSizeManager.f12,
-        fontFamily: 'Hoves-regular',
-        color: AppColors.lightError,
-      )),
+    titleLarge: TextStyle(
+      fontSize: FontSizeManager.f24,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightBasePrimary,
+    ),
+    titleMedium: TextStyle(
+      fontSize: FontSizeManager.f14,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightBasePrimary,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: FontSizeManager.f16,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightBasePrimary,
+    ),
+    labelMedium: TextStyle(
+      fontSize: FontSizeManager.f14,
+      fontFamily: 'Hoves-regular',
+      color: AppColors.lightHighlightPrimary,
+    ),
+    labelSmall: TextStyle(
+      fontSize: FontSizeManager.f12,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightBaseSecondary,
+    ),
+    headlineMedium: TextStyle(
+      fontSize: FontSizeManager.f16,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightGreen,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: FontSizeManager.f14,
+      fontFamily: 'Hoves-medium',
+      color: AppColors.lightBaseSecondary,
+    ),
+    displaySmall: TextStyle(
+      fontSize: FontSizeManager.f12,
+      fontFamily: 'Hoves-regular',
+      color: AppColors.lightError,
+    ),
+    titleSmall: TextStyle(
+      fontSize: FontSizeManager.f12,
+      fontFamily: 'Hoves-regular',
+      color: AppColors.lightError,
+    ),
+  ),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: AppColors.lightUnitBg,
     closeIconColor: AppColors.lightGreen,
@@ -144,6 +150,11 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
       fontSize: FontSizeManager.f14,
       fontFamily: 'Hoves-medium',
       color: AppColors.darkStroke,
+    ),
+    titleSmall: TextStyle(
+      fontSize: FontSizeManager.f12,
+      fontFamily: 'Hoves-regular',
+      color: AppColors.darkError,
     ),
   ),
   snackBarTheme: const SnackBarThemeData(

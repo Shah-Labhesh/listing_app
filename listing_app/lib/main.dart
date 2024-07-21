@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:listing_app/app/albums/bloc/albums_bloc.dart';
 import 'package:listing_app/app/albums/screens/album_photos_screen.dart';
 import 'package:listing_app/app/posts/bloc/post_bloc/post_bloc.dart';
@@ -19,7 +20,8 @@ import 'package:listing_app/theme_setting/theme_changer.dart';
 import 'package:listing_app/utils/local_storage_utils.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   bool isDark = await LocalStorageUtils.getThemeMode();
   runApp(MyApp(
     isDark: isDark,

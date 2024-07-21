@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:listing_app/app/posts/bloc/post_bloc/post_bloc.dart';
 import 'package:listing_app/app/posts/bloc/post_bloc/post_event.dart';
 import 'package:listing_app/app/posts/bloc/post_bloc/post_state.dart';
@@ -19,6 +20,12 @@ List<Post> posts = [];
 
 class _PostScreenState extends State<PostScreen> {
   @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     bool isRefreshing = false;
@@ -36,7 +43,7 @@ class _PostScreenState extends State<PostScreen> {
         child: SafeArea(
           child: BlocConsumer<PostBloc, PostState>(
             listener: (context, state) {
-               if (state is RefreshingPost) {
+              if (state is RefreshingPost) {
                 setState(() {
                   isRefreshing = true;
                 });
@@ -45,7 +52,7 @@ class _PostScreenState extends State<PostScreen> {
                   isRefreshing = false;
                 });
                 ToastUtils.show(context, state.message, isSuccess: false);
-              }  else if (state is PostLoaded) {
+              } else if (state is PostLoaded) {
                 setState(() {
                   posts = state.posts;
                 });
@@ -63,9 +70,6 @@ class _PostScreenState extends State<PostScreen> {
                 posts = state.posts;
               } else if (state is PostInitial) {
                 context.read<PostBloc>().add(FetchPosts());
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
               } else if (state is PostLoading || state is RefreshingPost) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
@@ -87,14 +91,22 @@ class _PostScreenState extends State<PostScreen> {
                           size: 22,
                         ),
                       ),
-                      Text(state.message),
+                      Text(
+                        state.message,
+                        style: theme.textTheme.titleSmall,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 );
               }
               if (posts.isEmpty) {
-                return const Center(
-                  child: Text('No data found'),
+                return Center(
+                  child: Text(
+                    'No posts found',
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center,
+                  ),
                 );
               }
 

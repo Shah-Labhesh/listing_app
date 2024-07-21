@@ -6,6 +6,7 @@ import 'package:listing_app/app/posts/bloc/user_post_bloc/user_post_event.dart';
 import 'package:listing_app/app/posts/bloc/user_post_bloc/user_post_state.dart';
 import 'package:listing_app/app/posts/data/model/post.dart';
 import 'package:listing_app/app/posts/widgets/post_tile.dart';
+import 'package:listing_app/utils/local_storage_utils.dart';
 import 'package:listing_app/utils/toast_utils.dart';
 import 'package:listing_app/widgets/top_bar.dart';
 
@@ -24,11 +25,15 @@ class _UsersPostScreenState extends State<UsersPostScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(65),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65),
         child: TopBar(
-          isBackButton: false,
+          isBackButton: true,
           title: 'My Posts',
+          onBackButtonTap: () {
+            LocalStorageUtils.saveUserId(1);
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: RefreshIndicator(
@@ -85,8 +90,21 @@ class _UsersPostScreenState extends State<UsersPostScreen> {
                           size: 22,
                         ),
                       ),
-                      Text(state.message),
+                      Text(
+                        state.message,
+                        style: theme.textTheme.titleSmall,
+                        textAlign: TextAlign.center,
+                      ),
                     ],
+                  ),
+                );
+              }
+              if (posts.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Posts Found',
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center,
                   ),
                 );
               }

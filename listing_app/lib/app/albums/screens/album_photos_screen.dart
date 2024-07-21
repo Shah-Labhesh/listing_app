@@ -58,7 +58,18 @@ class _AlbumPhotosScreenState extends State<AlbumPhotosScreen> {
             }
             if (state is AlbumPhotosError) {
               return Center(
-                child: Text(state.message),
+                child: Text(state.message,
+                    style: theme.textTheme.titleSmall,
+                    textAlign: TextAlign.center),
+              );
+            }
+            if (photos.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Photos Found',
+                  style: theme.textTheme.titleSmall,
+                  textAlign: TextAlign.center,
+                ),
               );
             }
             return ListView.builder(

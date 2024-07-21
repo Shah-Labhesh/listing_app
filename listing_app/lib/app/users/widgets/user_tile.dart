@@ -197,7 +197,7 @@ class _UserTileState extends State<UserTile> {
                             ),
                             child: Center(
                               child: Text(
-                                'View on Map',
+                                'View more',
                                 style: theme.textTheme.labelMedium,
                               ),
                             ),

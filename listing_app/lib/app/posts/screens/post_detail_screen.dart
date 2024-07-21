@@ -49,17 +49,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             CustomButton(
               title: 'Add Comment',
               onPressed: () {
-                Navigator.pushNamed(context, 'post_comment').then((value) {
-                  if (value != null) {
-                    final comment = value as Comment;
-                    context.read<PostBloc>().add(
-                          AddComment(
-                            postId: post!.id ?? 1,
-                            comment: comment,
-                          ),
-                        );
-                  }
-                });
+                Navigator.pushNamed(context, 'post_comment').then(
+                  (value) {
+                    if (value != null) {
+                      final comment = value as Comment;
+                      context.read<PostBloc>().add(
+                            AddComment(
+                              postId: post!.id ?? 1,
+                              comment: comment,
+                            ),
+                          );
+                    }
+                  },
+                );
               },
             ),
           ],
@@ -98,7 +100,25 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             }
             if (state is PostDetailError) {
               return Center(
-                child: Text(state.message.toString()),
+                child: Text(
+                  state.message,
+                  style: theme.textTheme.titleSmall,
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+            if (post == null) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+            if (comments.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Comments Found',
+                  style: theme.textTheme.titleSmall,
+                  textAlign: TextAlign.center,
+                ),
               );
             }
             return Column(

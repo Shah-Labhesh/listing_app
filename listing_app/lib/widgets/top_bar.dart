@@ -1,19 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters
 import 'package:flutter/material.dart';
 
+import 'package:listing_app/constants/app_font_size.dart';
 import 'package:listing_app/constants/app_heights.dart';
 import 'package:listing_app/constants/app_width.dart';
-import 'package:listing_app/constants/app_font_size.dart';
 
 class TopBar extends StatefulWidget {
   const TopBar({
     Key? key,
     required this.title,
     this.isBackButton = true,
+    this.onBackButtonTap,
   }) : super(key: key);
 
   final String title;
   final bool isBackButton;
+  final Function()? onBackButtonTap;
   @override
   State<TopBar> createState() => _TopBarState();
 }
@@ -37,7 +39,7 @@ class _TopBarState extends State<TopBar> {
         children: [
           if (widget.isBackButton)
             GestureDetector(
-              onTap: () {
+              onTap: widget.onBackButtonTap ?? () {
                 Navigator.pop(context);
               },
               child: Icon(
