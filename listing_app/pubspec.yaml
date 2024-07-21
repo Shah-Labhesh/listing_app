@@ -45,6 +45,7 @@ dependencies:
   custom_refresh_indicator: ^3.1.2
   easy_url_launcher: ^0.0.7
   cached_network_image: ^3.3.1
+  email_validator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

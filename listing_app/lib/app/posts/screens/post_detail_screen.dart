@@ -11,6 +11,7 @@ import 'package:listing_app/constants/app_font_size.dart';
 import 'package:listing_app/constants/app_heights.dart';
 import 'package:listing_app/constants/app_width.dart';
 import 'package:listing_app/utils/toast_utils.dart';
+import 'package:listing_app/widgets/custom_button.dart';
 import 'package:listing_app/widgets/top_bar.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -36,13 +37,49 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     }
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: PreferredSize(preferredSize: const Size.fromHeight(HeightManager.h65), child: TopBar(title: 'Post Detail')),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(HeightManager.h65),
+        child: TopBar(title: 'Post Detail'),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(WidthManager.w20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomButton(
+              title: 'Add Comment',
+              onPressed: () {
+                Navigator.pushNamed(context, 'post_comment').then((value) {
+                  if (value != null) {
+                    final comment = value as Comment;
+                    context.read<PostBloc>().add(
+                          AddComment(
+                            postId: post!.id ?? 1,
+                            comment: comment,
+                          ),
+                        );
+                  }
+                });
+              },
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         bottom: false,
         child: BlocConsumer<PostBloc, PostState>(
           listener: (context, state) {
             if (state is PostDetailError) {
               ToastUtils.show(context, state.message, isSuccess: false);
+            }
+            if (state is FailedCommentingOnPost) {
+              ToastUtils.show(context, state.message, isSuccess: false);
+            }
+            if (state is CommentedOnPost) {
+              setState(() {
+                comments = state.comment;
+              });
+              ToastUtils.show(context, 'Comment added successfully');
             }
             if (state is PostDetailLoaded) {
               setState(() {
@@ -54,7 +91,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             if (state is PostDetailLoaded) {
               comments = state.comment;
             }
-            if (state is PostDetailLoading) {
+            if (state is PostDetailLoading || state is CommmentingOnPost) {
               return const Center(
                 child: CupertinoActivityIndicator(),
               );
@@ -71,35 +108,42 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RichText(text: TextSpan(children: [
-                        TextSpan(
-                          text: 'Title: ',
-                          style: theme.textTheme.titleLarge!.copyWith(
-                            fontSize: FontSizeManager.f22,
-                          ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Title: ',
+                              style: theme.textTheme.titleLarge!.copyWith(
+                                fontSize: FontSizeManager.f22,
+                              ),
+                            ),
+                            TextSpan(
+                              text: post?.title ?? '',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                fontSize: FontSizeManager.f18,
+                              ),
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: post?.title ?? '',
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            fontSize: FontSizeManager.f18,
-                          ),
-                        ),
-                      ])),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
-                      RichText(text: 
-                      TextSpan(children: [
-                        TextSpan(
-                          text: 'Body: ',
-                          style: theme.textTheme.bodyMedium!
-                              .copyWith(fontSize: FontSizeManager.f16),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Body: ',
+                              style: theme.textTheme.bodyMedium!
+                                  .copyWith(fontSize: FontSizeManager.f16),
+                            ),
+                            TextSpan(
+                              text: post?.body ?? '',
+                              style: theme.textTheme.headlineSmall,
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: post?.body ?? '',
-                          style: theme.textTheme.headlineSmall,
-                        ),
-                      ])),
+                      ),
                     ],
                   ),
                 ),
@@ -125,8 +169,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                               width: WidthManager.w50,
                               height: WidthManager.w50,
                               decoration: BoxDecoration(
-                                color: AppColors
-                                    .usernameColors[i.name.toString().toUpperCase()[0]],
+                                color: AppColors.usernameColors[
+                                    i.name.toString().toUpperCase()[0]],
                                 borderRadius:
                                     BorderRadius.circular(WidthManager.w50),
                               ),

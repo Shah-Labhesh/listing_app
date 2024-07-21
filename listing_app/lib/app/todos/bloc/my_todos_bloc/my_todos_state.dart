@@ -65,3 +65,85 @@ class MyTodosRefreshError extends MyTodosState {
   @override
   List<Object> get props => [error,message];
 }
+
+class MyTodosAddSuccess extends MyTodosState {
+  final List<Todo> todos;
+
+  const MyTodosAddSuccess({required this.todos});
+
+  @override
+  List<Object> get props => [todos];
+}
+
+
+class MyTodosUpdateSuccess extends MyTodosState {
+  final List<Todo> todos;
+
+  const MyTodosUpdateSuccess({required this.todos});
+
+  @override
+  List<Object> get props => [todos];
+}
+
+class MyTodosDeleteSuccess extends MyTodosState {
+  final List<Todo> todos;
+
+  const MyTodosDeleteSuccess({required this.todos});
+
+  @override
+  List<Object> get props => [todos];
+}
+
+class MyTodosAddError extends MyTodosState {
+  final String error;
+  final dynamic message;
+
+  const MyTodosAddError({
+    required this.error,
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [error,message];
+}
+
+class MyTodosUpdateError extends MyTodosState {
+  final String error;
+  final dynamic message;
+
+  const MyTodosUpdateError({
+    required this.error,
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [error,message];
+}
+
+class MyTodosDeleteError extends MyTodosState {
+  final String error;
+  final dynamic message;
+
+  const MyTodosDeleteError({
+    required this.error,
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [error,message];
+}
+
+class MyTodosAddLoading extends MyTodosState {
+  @override
+  List<Object> get props => [];
+}
+
+class MyTodosUpdateLoading extends MyTodosState {
+  @override
+  List<Object> get props => [];
+}
+
+class MyTodosDeleteLoading extends MyTodosState {
+  @override
+  List<Object> get props => [];
+}

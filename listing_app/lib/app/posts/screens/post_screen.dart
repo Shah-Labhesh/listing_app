@@ -22,7 +22,6 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     bool isRefreshing = false;
-
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: RefreshIndicator(
@@ -37,9 +36,7 @@ class _PostScreenState extends State<PostScreen> {
         child: SafeArea(
           child: BlocConsumer<PostBloc, PostState>(
             listener: (context, state) {
-              if (state is PostError) {
-                ToastUtils.show(context, state.message, isSuccess: false);
-              } else if (state is RefreshingPost) {
+               if (state is RefreshingPost) {
                 setState(() {
                   isRefreshing = true;
                 });
@@ -48,17 +45,14 @@ class _PostScreenState extends State<PostScreen> {
                   isRefreshing = false;
                 });
                 ToastUtils.show(context, state.message, isSuccess: false);
+              }  else if (state is PostLoaded) {
+                setState(() {
+                  posts = state.posts;
+                });
               } else if (state is PostRefreshed) {
                 setState(() {
+                  posts = state.posts;
                   isRefreshing = false;
-                });
-              } else if (state is PostLoaded) {
-                setState(() {
-                  posts = state.posts;
-                });
-              } else if (state is PostRefreshed) {
-                setState(() {
-                  posts = state.posts;
                 });
               }
             },

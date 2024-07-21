@@ -1,63 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:listing_app/constants/app_colors.dart';
 import 'package:listing_app/constants/app_font_size.dart';
 
-ThemeData lightTheme = ThemeData(
+ThemeData lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: AppColors.lightBg,
   brightness: Brightness.light,
   colorScheme: const ColorScheme.light(
     onPrimary: AppColors.lightGreen,
     onPrimaryContainer: AppColors.lightBg,
     brightness: Brightness.light,
-    
 
     // cupertino switch
     surfaceContainer: AppColors.lightBg,
-
     inversePrimary: AppColors.lightDash,
-
   ),
+  hoverColor: AppColors.lightBlack,
+  highlightColor: AppColors.lightBg,
   dividerColor: AppColors.lightBg,
   cardColor: AppColors.lightUnitBg,
   textTheme: const TextTheme(
-    titleLarge: TextStyle(
-      fontSize: FontSizeManager.f24,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightBasePrimary,
-    ),
-    titleMedium: TextStyle(
-      fontSize: FontSizeManager.f14,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightBasePrimary,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: FontSizeManager.f16,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightBasePrimary,
-    ),
-    labelMedium: TextStyle(
-      fontSize: FontSizeManager.f14,
-      fontFamily: 'Hoves-regular',
-      color: AppColors.lightHighlightPrimary,
-    ),
-    labelSmall: TextStyle(
-      fontSize: FontSizeManager.f12,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightBaseSecondary,
-    ),
-    headlineMedium: TextStyle(
-      fontSize: FontSizeManager.f16,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightGreen,
-    ),
-    headlineSmall: TextStyle(
-      fontSize: FontSizeManager.f14,
-      fontFamily: 'Hoves-medium',
-      color: AppColors.lightBaseSecondary,
-    ),
-  ),
+      titleLarge: TextStyle(
+        fontSize: FontSizeManager.f24,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightBasePrimary,
+      ),
+      titleMedium: TextStyle(
+        fontSize: FontSizeManager.f14,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightBasePrimary,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: FontSizeManager.f16,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightBasePrimary,
+      ),
+      labelMedium: TextStyle(
+        fontSize: FontSizeManager.f14,
+        fontFamily: 'Hoves-regular',
+        color: AppColors.lightHighlightPrimary,
+      ),
+      labelSmall: TextStyle(
+        fontSize: FontSizeManager.f12,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightBaseSecondary,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: FontSizeManager.f16,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightGreen,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: FontSizeManager.f14,
+        fontFamily: 'Hoves-medium',
+        color: AppColors.lightBaseSecondary,
+      ),
+      displaySmall: TextStyle(
+        fontSize: FontSizeManager.f12,
+        fontFamily: 'Hoves-regular',
+        color: AppColors.lightError,
+      )),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: AppColors.lightUnitBg,
     closeIconColor: AppColors.lightGreen,
@@ -86,7 +90,7 @@ ThemeData lightTheme = ThemeData(
   ),
 );
 
-ThemeData darkTheme = ThemeData(
+ThemeData darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: AppColors.darkBg,
   brightness: Brightness.dark,
   colorScheme: const ColorScheme.dark(
@@ -99,9 +103,16 @@ ThemeData darkTheme = ThemeData(
 
     inversePrimary: AppColors.darkDash,
   ),
+  hoverColor: AppColors.darkDash,
+  highlightColor: AppColors.darkWhite,
   dividerColor: AppColors.darkBg,
   cardColor: AppColors.darkUnitBg,
   textTheme: const TextTheme(
+    displaySmall: TextStyle(
+      fontSize: FontSizeManager.f12,
+      fontFamily: 'Hoves-regular',
+      color: AppColors.darkError,
+    ),
     titleLarge: TextStyle(
       fontSize: FontSizeManager.f24,
       fontFamily: 'Hoves-medium',
@@ -147,7 +158,6 @@ ThemeData darkTheme = ThemeData(
       fontFamily: 'Hoves-regular',
     ),
   ),
-  
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: AppColors.darkUnitBg,
     selectedItemColor: AppColors.darkPurpure,

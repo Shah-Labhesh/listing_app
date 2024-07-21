@@ -4,6 +4,7 @@ import 'package:listing_app/app/users/bloc/user_list_bloc/user_list_event.dart';
 import 'package:listing_app/app/users/bloc/user_list_bloc/user_list_state.dart';
 import 'package:listing_app/app/users/data/model/user.dart';
 import 'package:listing_app/app/users/data/repo/user_repo.dart';
+import 'package:listing_app/utils/local_storage_utils.dart';
 
 class UserListBloc extends Bloc<UserListEvent, UserListState> {
   UserListBloc() : super(UserListInitial()) {
@@ -16,15 +17,21 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   Future<void> _fetchUsers(Emitter<UserListState> emit) async {
     emit(UserListLoading());
     try {
-      final response = await repo.getUsers();
-      if (response.statusCode == 200) {
-        final users = (response.data as List<dynamic>).map<User>((e) => User.fromMap(e)).toList();
-        emit(UserListLoaded(users: users));
+      final data = await LocalStorageUtils.getUsers();
+      if (data.isEmpty) {
+        final response = await repo.getUsers();
+        if (response.statusCode == 200) {
+          final users = (response.data as List<dynamic>).map<User>((e) => User.fromMap(e)).toList();
+          LocalStorageUtils.saveUsers(users);
+          emit(UserListLoaded(users: users));
+        } else {
+          emit(const UserListError(
+            title: 'Something went wrong',
+            message: 'Please check your internet connection and try again',
+          ));
+        }
       } else {
-        emit(const UserListError(
-          title: 'Something went wrong',
-          message: 'Please check your internet connection and try again',
-        ));
+        emit(UserListLoaded(users: data));
       }
     } catch (e) {
       if (e is DioException) {
@@ -58,7 +65,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
           ));
         }
       } else {
-        print(e);
         emit(const UserListError(
           title: 'Something went wrong',
           message: 'Please check your internet connection and try again',
@@ -70,15 +76,21 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
   void _refreshUsers(Emitter<UserListState> emit) async {
     emit(UserRefreshing());
     try {
-      final response = await repo.getUsers();
-      if (response.statusCode == 200) {
-        final users = (response.data as List<dynamic>).map<User>((e) => User.fromMap(e)).toList();
-        emit(UserListRefresh(users: users));
+      final data = await LocalStorageUtils.getUsers();
+      if (data.isEmpty) {
+        final response = await repo.getUsers();
+        if (response.statusCode == 200) {
+          final users = (response.data as List<dynamic>).map<User>((e) => User.fromMap(e)).toList();
+          LocalStorageUtils.saveUsers(users);
+          emit(UserListRefresh(users: users));
+        } else {
+          emit(const UserListRefreshError(
+            title: 'Something went wrong',
+            message: 'Please check your internet connection and try again',
+          ));
+        }
       } else {
-        emit(const UserListRefreshError(
-          title: 'Something went wrong',
-          message: 'Please check your internet connection and try again',
-        ));
+        emit(UserListRefresh(users: data));
       }
     } catch (e) {
       if (e is DioException) {
@@ -112,7 +124,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
           ));
         }
       } else {
-        print(e);
         emit(const UserListRefreshError(
           title: 'Something went wrong',
           message: 'Please check your internet connection and try again',

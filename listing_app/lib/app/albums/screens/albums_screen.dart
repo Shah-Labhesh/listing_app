@@ -41,7 +41,6 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
           child: BlocConsumer<AlbumsBloc, AlbumsState>(
             listener: (context, state) {
               if (state is AlbumsRefreshError) {
-                // Show error message
                 ToastUtils.show(context, state.message, isSuccess: false);
               }
               if (state is AlbumsLoaded) {

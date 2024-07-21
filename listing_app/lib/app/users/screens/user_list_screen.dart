@@ -34,9 +34,7 @@ class _UserListScreenState extends State<UserListScreen> {
           },
           child: BlocConsumer<UserListBloc, UserListState>(
             listener: (context, state) {
-              if (state is UserListError) {
-                ToastUtils.show(context, state.message, isSuccess: false);
-              } else if (state is UserListRefreshError) {
+              if (state is UserListRefreshError) {
                 ToastUtils.show(context, state.message, isSuccess: false);
               } else if (state is UserListRefresh) {
                 setState(() {
@@ -57,8 +55,31 @@ class _UserListScreenState extends State<UserListScreen> {
                 );
               } else if (state is UserListError) {
                 return Center(
-                  child: Text(state.message),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.read<UserListBloc>().add(FetchUsers());
+                        },
+                        child: Icon(
+                          // refresh
+                          Icons.refresh,
+                          color: theme.snackBarTheme.closeIconColor,
+                          size: 22,
+                        ),
+                      ),
+                      Text(state.message),
+                    ],
+                  ),
                 );
+              }
+              if (state is UserListRefresh) {
+                users = state.users;
+              }
+              if (state is UserListLoaded) {
+                users = state.users;
               }
               return ListView.builder(
                 itemCount: users.length,

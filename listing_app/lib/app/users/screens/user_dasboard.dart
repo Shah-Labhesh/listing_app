@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:listing_app/app/albums/bloc/albums_bloc.dart';
@@ -44,6 +43,10 @@ class _UserDasboardState extends State<UserDasboard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final args = ModalRoute.of(context)!.settings.arguments as int?;
+    if (args != null) {
+      _selectedIndex = args;
+    }
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -56,6 +59,7 @@ class _UserDasboardState extends State<UserDasboard> {
         _onItemTapped(0);
       },
       child: Scaffold(
+        
         backgroundColor: theme.scaffoldBackgroundColor,
         extendBody: true,
         body: SafeArea(

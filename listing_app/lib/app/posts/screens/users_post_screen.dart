@@ -63,12 +63,7 @@ class _UsersPostScreenState extends State<UsersPostScreen> {
               if (state is UserPostRefreshed) {
                 posts = state.posts;
               }
-              if (state is UserPostLoading) {
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
-              if (state is UserPostRefreshing) {
+              if (state is UserPostLoading || state is UserPostRefreshing) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
                 );

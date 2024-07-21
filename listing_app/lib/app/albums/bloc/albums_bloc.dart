@@ -5,6 +5,7 @@ import 'package:listing_app/app/albums/bloc/albums_state.dart';
 import 'package:listing_app/app/albums/data/model/album.dart';
 import 'package:listing_app/app/albums/data/model/photos.dart';
 import 'package:listing_app/app/albums/data/repo/album_repo.dart';
+import 'package:listing_app/utils/local_storage_utils.dart';
 
 class AlbumsBloc extends Bloc<AlbumsEvent, AlbumsState> {
   AlbumsBloc() : super(AlbumsInitial()) {
@@ -18,15 +19,26 @@ class AlbumsBloc extends Bloc<AlbumsEvent, AlbumsState> {
   Future<void> _fetchAlbums(Emitter<AlbumsState> emit) async {
     emit(AlbumsLoading());
     try {
-      final response = await repo.fetchAlbums();
-      if (response.statusCode == 200) {
-        final albums = (response.data as List<dynamic>).map<Album>((e) => Album.fromMap(e)).toList();
-        emit(AlbumsLoaded(albums: albums));
+      final data = await LocalStorageUtils.getAlbums();
+      final userId = await LocalStorageUtils.getUserId();
+      var userAlbums = data.where((e) => e.userId == userId).toList();
+      if (userAlbums.isEmpty) {
+        final response = await repo.fetchAlbums();
+        if (response.statusCode == 200) {
+          final albums = (response.data as List<dynamic>)
+              .map<Album>((e) => Album.fromMap(e))
+              .toList();
+          userAlbums = albums.where((e) => e.userId == userId).toList();
+          LocalStorageUtils.saveAlbums(albums);
+          emit(AlbumsLoaded(albums: albums));
+        } else {
+          emit(const AlbumsError(
+            error: 'Something went wrong',
+            message: 'Please check your internet connection and try again',
+          ));
+        }
       } else {
-        emit(const AlbumsError(
-          error: 'Something went wrong',
-          message: 'Please check your internet connection and try again',
-        ));
+        emit(AlbumsLoaded(albums: userAlbums));
       }
     } catch (e) {
       if (e is DioException) {
@@ -71,15 +83,26 @@ class AlbumsBloc extends Bloc<AlbumsEvent, AlbumsState> {
   void _refreshAlbums(Emitter<AlbumsState> emit) async {
     emit(AlbumsRefreshing());
     try {
-      final response = await repo.fetchAlbums();
-      if (response.statusCode == 200) {
-        final albums = (response.data as List<dynamic>).map<Album>((e) => Album.fromMap(e)).toList();
-        emit(AlbumsRefreshed(albums: albums));
+      final data = await LocalStorageUtils.getAlbums();
+      final userId = await LocalStorageUtils.getUserId();
+      var userAlbums = data.where((e) => e.userId == userId).toList();
+      if (data.isEmpty) {
+        final response = await repo.fetchAlbums();
+        if (response.statusCode == 200) {
+          final albums = (response.data as List<dynamic>)
+              .map<Album>((e) => Album.fromMap(e))
+              .toList();
+          userAlbums = albums.where((e) => e.userId == userId).toList();
+          LocalStorageUtils.saveAlbums(albums);
+          emit(AlbumsRefreshed(albums: userAlbums));
+        } else {
+          emit(const AlbumsRefreshError(
+            error: 'Something went wrong',
+            message: 'Please check your internet connection and try again',
+          ));
+        }
       } else {
-        emit(const AlbumsRefreshError(
-          error: 'Something went wrong',
-          message: 'Please check your internet connection and try again',
-        ));
+        emit(AlbumsRefreshed(albums: userAlbums));
       }
     } catch (e) {
       if (e is DioException) {
@@ -121,18 +144,29 @@ class AlbumsBloc extends Bloc<AlbumsEvent, AlbumsState> {
     }
   }
 
-  void _fetchAlbumPhotos(FetchAlbumPhotos event, Emitter<AlbumsState> emit) async {
+  void _fetchAlbumPhotos(
+      FetchAlbumPhotos event, Emitter<AlbumsState> emit) async {
     emit(AlbumPhotosLoading());
     try {
-      final response = await repo.fetchAlbumPhotos(event.albumId);
-      if (response.statusCode == 200) {
-        final photos = (response.data as List<dynamic>).map<Photos>((e) => Photos.fromMap(e)).toList();
-        emit(AlbumPhotosLoaded(photos: photos));
+      final data = await LocalStorageUtils.getPhotos();
+      final albumPhotos = data.where((e) => e.albumId == event.albumId).toList();
+      if (albumPhotos.isEmpty) {
+        final response = await repo.fetchAlbumPhotos();
+        if (response.statusCode == 200) {
+          final photos = (response.data as List<dynamic>)
+              .map<Photos>((e) => Photos.fromMap(e))
+              .toList();
+          final albumPhotos = photos.where((e) => e.albumId == event.albumId).toList();
+          LocalStorageUtils.savePhotos(photos);
+          emit(AlbumPhotosLoaded(photos: albumPhotos));
+        } else {
+          emit(const AlbumPhotosError(
+            error: 'Something went wrong',
+            message: 'Please check your internet connection and try again',
+          ));
+        }
       } else {
-        emit(const AlbumPhotosError(
-          error: 'Something went wrong',
-          message: 'Please check your internet connection and try again',
-        ));
+        emit(AlbumPhotosLoaded(photos: albumPhotos));
       }
     } catch (e) {
       if (e is DioException) {

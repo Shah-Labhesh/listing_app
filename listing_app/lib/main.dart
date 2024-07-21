@@ -6,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:listing_app/app/albums/bloc/albums_bloc.dart';
 import 'package:listing_app/app/albums/screens/album_photos_screen.dart';
 import 'package:listing_app/app/posts/bloc/post_bloc/post_bloc.dart';
+import 'package:listing_app/app/posts/screens/add_comment_screen.dart';
 import 'package:listing_app/app/posts/screens/post_detail_screen.dart';
+import 'package:listing_app/app/todos/bloc/my_todos_bloc/my_todos_bloc.dart';
+import 'package:listing_app/app/todos/screens/add_update_todo_screen.dart';
 import 'package:listing_app/app/users/screens/user_dasboard.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +56,14 @@ class MyApp extends StatelessWidget {
             'album_photos': (context) => BlocProvider(
                   create: (context) => AlbumsBloc(),
                   child: const AlbumPhotosScreen(),
+                ),
+            'manage_todo': (context) => BlocProvider(
+                  create: (context) => MyTodosBloc(),
+                  child: const AddUpdateTodoScreen(),
+                ),
+            'post_comment': (context) => BlocProvider(
+                  create: (context) => PostBloc(),
+                  child: const AddCommentScreen(),
                 ),
           },
         );
