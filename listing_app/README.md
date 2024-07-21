@@ -29,24 +29,24 @@ The app includes features such as listing posts, displaying post details with co
 
 ### Splash
 
-![Splash Screen](assets/images/splash.png)
+![Splash Screen](listing_app/assets/images/splash.png)
 
 ### Light Theme
 
-![Light Theme - Posts Screen](assets/images/light_post.png)
-![Light Theme - Users Screen](assets/images/light_user.png)
+![Light Theme - Posts Screen](listing_app/assets/images/light_post.png)
+![Light Theme - Users Screen](listing_app/assets/images/light_user.png)
 
 ### Dark Theme
 
-![Dark Theme - Posts Screen](assets/images/dark_post.png)
-![Dark Theme - Users Screen](assets/images/dark_user.png)
+![Dark Theme - Posts Screen](listing_app/assets/images/dark_post.png)
+![Dark Theme - Users Screen](listing_app/assets/images/dark_user.png)
 
 ## How to Run
 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Shah-Labhesh/listing_app.git
-   cd listing_app/
+   cd listing_app/listing_app
 
 2. **Install dependencies**:
     ```bash
