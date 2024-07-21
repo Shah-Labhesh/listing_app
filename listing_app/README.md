@@ -49,7 +49,9 @@ The app includes features such as listing posts, displaying post details with co
    cd listing_app/
 
 2. **Install dependencies**:
+    ```bash
     flutter pub get
 
 3. **Run the Projet**:
+    ```bash
     flutter run
